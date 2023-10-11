@@ -6,10 +6,7 @@ assign2.c
 runall.c
 makefile
 */
-void caller()
-{
-    s1[x1 + y1 + z1 + x2 + y2 + z2];
-}
+
 int main(int argc, char *argv[])
 {
     int i;
