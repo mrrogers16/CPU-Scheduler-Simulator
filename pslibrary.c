@@ -1,12 +1,14 @@
 #include <stdio.h>
 
 
+
 #define READY 0
 #define RUNNING 1
 #define WAITING 2
 #define DONE 3
 
 static char stateChars[] = {'r', 'R', 'w', '\0'};
+
 
 /* 1) handle state changes:
 running process completes CPU burst
@@ -66,7 +68,7 @@ void fcfs(char *s1, char *s2, int x1, int y1, int z1,
         /* if both ready, depends on algorithm */
         if ((state1 == READY) && (state2 == READY))
         {
-            state2 = WAITING;
+            state1 = RUNNING;
         }
         /* handle one ready and CPU available */
         else if ((state1 == READY) && (state2 != RUNNING))

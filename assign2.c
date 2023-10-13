@@ -1,6 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "pslibrary.h"
 
+#define READY 0
+#define RUNNING 1
+#define WAITING 2
+#define DONE 3
 
 /*
 pslibrary.c
@@ -13,6 +18,13 @@ makefile
 int main(int argc, char *argv[])
 {
     int i;
+
+    int x1 = atoi(argv[2]);
+    int y1 = atoi(argv[3]);
+    int z1 = atoi(argv[4]);
+    int size = x1 + y1 + z1;
+    char s1[size];
+
 
     if (argc < 7)
     {
@@ -28,10 +40,5 @@ int main(int argc, char *argv[])
             printf("%s ", argv[i]);
         }
         printf("\n");
-
-        for(i = 2; i < argc; i++)
-        {
-            fcfs(argv[i]);
-        }
     }
 }
