@@ -1,11 +1,5 @@
 #include <stdio.h>
-/*
-pslibrary.c
-pslibrary.h
-assign2.c
-runall.c
-makefile
-*/
+
 
 #define READY 0
 #define RUNNING 1
@@ -100,30 +94,4 @@ void fcfs(char *s1, char *s2, int x1, int y1, int z1,
         if (state2 == WAITING)
             ioLeft2--;
     } /* end of main for loop */
-}
-
-int main(int argc, char *argv[])
-{
-    int i;
-
-    if (argc < 7)
-    {
-        fprintf(stderr, "ERROR USAGE: file1 file2 ... file n\n");
-        return 1;
-    }
-    else
-    {
-        printf("CS 3733 / Assignment 2 / written by Mickey Clarke / hpz729\n");
-        printf("Inputs: ");
-        for (i = 1; i < argc; i++)
-        {
-            printf("%s ", argv[i]);
-        }
-        printf("\n");
-
-        for(i = 2; i < argc; i++)
-        {
-            fcfs(argv[i]);
-        }
-    }
 }
