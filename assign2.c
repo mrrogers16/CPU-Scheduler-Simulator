@@ -18,8 +18,6 @@ makefile
 int main(int argc, char *argv[])
 {
     int i;
-
-    int q = atoi(argv[1]);
     int x1 = atoi(argv[2]);
     int y1 = atoi(argv[3]);
     int z1 = atoi(argv[4]);
@@ -32,7 +30,7 @@ int main(int argc, char *argv[])
 
     if (argc < 8)
     {
-        fprintf(stderr, "ERROR USAGE: file1 file2 ... file n\n");
+        fprintf(stderr, "ERROR USAGE: ./assign2 quantum x1 y1 z1 x2 y2 z2\n");
         return 1;
     }
     else
@@ -45,7 +43,9 @@ int main(int argc, char *argv[])
         }
         printf("\n");
     }
+
     fcfs(s1, s2, x1, y1, z1, x2, y2, z2);
+    sjf(s1, s2, x1, y1, z1, x2, y2, z2);
 
     return 0;
 }
