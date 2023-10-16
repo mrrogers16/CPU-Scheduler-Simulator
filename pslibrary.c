@@ -58,7 +58,7 @@ void psjf(char *s1, char *s2, int x1, int y1, int z1,
         {
             state1 = READY;
             cpuLeft1 = z1;
-            if(cpuLeft1 < cpuLeft2)
+            if (cpuLeft1 < cpuLeft2)
             {
                 state1 = RUNNING;
                 state2 = READY;
@@ -68,7 +68,7 @@ void psjf(char *s1, char *s2, int x1, int y1, int z1,
         {
             state2 = READY;
             cpuLeft2 = z2;
-            if(cpuLeft1 > cpuLeft2)
+            if (cpuLeft1 > cpuLeft2)
             {
                 state2 = RUNNING;
                 state1 = READY;
@@ -77,7 +77,7 @@ void psjf(char *s1, char *s2, int x1, int y1, int z1,
         /* if both ready, depends on algorithm */
         if ((state1 == READY) && (state2 == READY))
         {
-            if(cpuLeft1 <= cpuLeft2)
+            if (cpuLeft1 <= cpuLeft2)
             {
                 state1 = RUNNING;
             }
