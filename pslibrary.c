@@ -1,14 +1,11 @@
 #include <stdio.h>
 
-
-
 #define READY 0
 #define RUNNING 1
 #define WAITING 2
 #define DONE 3
 
 static char stateChars[] = {'r', 'R', 'w', '\0'};
-
 
 /* 1) handle state changes:
 running process completes CPU burst
@@ -31,8 +28,13 @@ void fcfs(char *s1, char *s2, int x1, int y1, int z1,
     int cpuLeft2 = x2; /* P2 next CPU burst remaining */
     int ioLeft1 = y1;  /* P1 next IO burst remaining, 0 if no more IO */
     int ioLeft2 = y2;  /* P2 next IO burst remaining, 0 if no more IO */
+
+    int cpu_total = 0; /* Total execution time*/
+
     for (i = 0; (state1 != DONE) || (state2 != DONE); i++)
     {
+        cpu_total++; /* Increment total time each loop through*/
+
         /* running process completes its CPU burst */
         if ((state1 == RUNNING) && (cpuLeft1 == 0))
         {
@@ -74,7 +76,6 @@ void fcfs(char *s1, char *s2, int x1, int y1, int z1,
         else if ((state1 == READY) && (state2 != RUNNING))
         {
             state1 = RUNNING;
-            
         }
         else if ((state2 == READY) && (state1 != RUNNING))
         {
@@ -86,7 +87,7 @@ void fcfs(char *s1, char *s2, int x1, int y1, int z1,
         if (state2 != DONE)
             s2[i] = stateChars[state2];
         /* decrement counts */
-        
+
         if (state1 == RUNNING)
             cpuLeft1--;
         if (state1 == WAITING)
@@ -96,4 +97,18 @@ void fcfs(char *s1, char *s2, int x1, int y1, int z1,
         if (state2 == WAITING)
             ioLeft2--;
     } /* end of main for loop */
+
+    printf("S1: ");
+    for (i = 0; s1[i] != '\0'; i++)
+    {
+        printf("%c", s1[i]);
+    }
+    printf("\n");
+
+    printf("S2: ");
+    for (i = 0; s2[i] != '\0'; i++)
+    {
+        printf("%c", s2[i]);
+    }
+    printf("\n");
 }
