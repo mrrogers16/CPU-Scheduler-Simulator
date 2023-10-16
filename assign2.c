@@ -46,6 +46,7 @@ int main(int argc, char *argv[])
 
     fcfs(s1, s2, x1, y1, z1, x2, y2, z2);
     sjf(s1, s2, x1, y1, z1, x2, y2, z2);
+    psjf(s1, s2, x1, y1, z1, x2, y2, z2);
 
     return 0;
 }

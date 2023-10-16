@@ -8,4 +8,7 @@ void fcfs(char *s1, char *s2, int x1, int y1, int z1,
 // Shortest Job First Algo
 void sjf(char *s1, char *s2, int x1, int y1, int z1,
          int x2, int y2, int z2);
+// Preemptive Shortest Job First
+void psjf(char *s1, char *s2, int x1, int y1, int z1,
+          int x2, int y2, int z2);
 #endif
