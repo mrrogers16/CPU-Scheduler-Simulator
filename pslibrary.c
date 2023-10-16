@@ -58,26 +58,32 @@ void psjf(char *s1, char *s2, int x1, int y1, int z1,
         {
             state1 = READY;
             cpuLeft1 = z1;
+            if(cpuLeft1 < cpuLeft2)
+            {
+                state1 = RUNNING;
+                state2 = READY;
+            }
         }
         if ((state2 == WAITING) && (ioLeft2 == 0))
         {
             state2 = READY;
             cpuLeft2 = z2;
+            if(cpuLeft1 > cpuLeft2)
+            {
+                state2 = RUNNING;
+                state1 = READY;
+            }
         }
         /* if both ready, depends on algorithm */
         if ((state1 == READY) && (state2 == READY))
         {
-            if(cpuLeft1 > cpuLeft2)
-            {
-                state2 = RUNNING;
-            }
-            else if(cpuLeft1 < cpuLeft2)
+            if(cpuLeft1 <= cpuLeft2)
             {
                 state1 = RUNNING;
             }
             else
             {
-                state1 = RUNNING; /* Default tie breaker to lowest PID*/
+                state2 = RUNNING;
             }
         }
         /* handle one ready and CPU available */
@@ -104,10 +110,21 @@ void psjf(char *s1, char *s2, int x1, int y1, int z1,
         if (state2 == WAITING)
             ioLeft2--;
     } /* end of main for loop */
+
+    printf("PSJF\nS1: ");
+    for (i = 0; s1[i] != '\0'; i++)
+    {
+        printf("%c", s1[i]);
+    }
+    printf("\n");
+
+    printf("S2: ");
+    for (i = 0; s2[i] != '\0'; i++)
+    {
+        printf("%c", s2[i]);
+    }
+    printf("\n");
 }
-
-
-
 
 void sjf(char *s1, char *s2, int x1, int y1, int z1,
          int x2, int y2, int z2)
