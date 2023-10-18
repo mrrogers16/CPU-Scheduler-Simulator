@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #define READY 0
 #define RUNNING 1
@@ -6,6 +8,14 @@
 #define DONE 3
 
 static char stateChars[] = {'r', 'R', 'w', '\0'};
+
+
+typedef struct {
+    int avg_wait_time;
+    int cpu_ut;
+    int wait_count1;
+    int wait_count2;
+} CalculationResult;
 
 /* 1) handle state changes:
 running process completes CPU burst
@@ -19,37 +29,82 @@ avoid putting in multiple string terminators
 /* assume s1 and s2 point to buffers with enough space to hold the result */
 /* assume that the int parameters are strictly greater than 0 */
 
-
-
-char* calculate(char *s1)
+CalculationResult* calculate(char *s1, char *s2)
 {
     int i;
+    CalculationResult* result = malloc(sizeof(CalculationResult));
+    size_t length1 = strlen(s1);
+    size_t length2 = strlen(s2);
+    int longest;
 
-    int wait_count = 0;
-    int running_count = 0;
-    int ready_count = 0;
+    int wait_count1 = 0;
+    int running_count1 = 0;
+    int ready_count1 = 0;
+
+    int wait_count2 = 0;
+    int running_count2 = 0;
+    int ready_count2 = 0;
 
     char wait = 'w';
     char running = 'R';
     char ready = 'r';
 
-    for(i = 0; i != '\0'; i++)
+    if (length1 > length2)
     {
-        if(s1[i] == wait)
+        longest = length1;
+    }
+    else
+    {
+        longest = length2;
+    }
+
+    for (i = 0; i != '\0'; i++)
+    {
+        if (s1[i] == wait)
         {
-            wait_count++;
+            wait_count1++;
         }
         else if (s1[i] == running)
         {
-            running_count++;
+            running_count1++;
         }
-        else if(s1[i] == ready)
+        else if (s1[i] == ready)
         {
-            ready_count++;
+            ready_count1++;
         }
-        
     }
 
+    for (i = 0; i != '\0'; i++)
+    {
+        if (s2[i] == wait)
+        {
+            wait_count2++;
+        }
+        else if (s2[i] == running)
+        {
+            running_count2++;
+        }
+        else if (s2[i] == ready)
+        {
+            ready_count2++;
+        }
+    }
+
+    int avg_wait_time = (ready_count1 + ready_count2) / 2;
+    result->avg_wait_time = avg_wait_time;
+    int cpu_ut = (running_count1 + running_count2) / longest;
+    result->cpu_ut = cpu_ut;
+    result->wait_count1 = wait_count1;
+    result->wait_count2 = wait_count2;
+
+    return result;
+
+    /*
+    the first two values are integers that indicate the waiting time for the first and second processes
+    (i.e., the number of times r occurs in the first and second string), respectively. The third value
+    is the average waiting time (i.e., average of the two integers) and the last one indicates the CPU
+    utilization (i.e., the total number of R’s in the two strings divided by the length of the longer string).
+    */
 }
 
 void psjf(char *s1, char *s2, int x1, int y1, int z1,
