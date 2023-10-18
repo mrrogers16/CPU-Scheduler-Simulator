@@ -19,6 +19,39 @@ avoid putting in multiple string terminators
 /* assume s1 and s2 point to buffers with enough space to hold the result */
 /* assume that the int parameters are strictly greater than 0 */
 
+
+
+char* calculate(char *s1)
+{
+    int i;
+
+    int wait_count = 0;
+    int running_count = 0;
+    int ready_count = 0;
+
+    char wait = 'w';
+    char running = 'R';
+    char ready = 'r';
+
+    for(i = 0; i != '\0'; i++)
+    {
+        if(s1[i] == wait)
+        {
+            wait_count++;
+        }
+        else if (s1[i] == running)
+        {
+            running_count++;
+        }
+        else if(s1[i] == ready)
+        {
+            ready_count++;
+        }
+        
+    }
+
+}
+
 void psjf(char *s1, char *s2, int x1, int y1, int z1,
           int x2, int y2, int z2)
 {
