@@ -9,8 +9,8 @@
 
 static char stateChars[] = {'r', 'R', 'w', '\0'};
 
-
-typedef struct {
+typedef struct
+{
     int avg_wait_time;
     int cpu_ut;
     int wait_count1;
@@ -29,10 +29,9 @@ avoid putting in multiple string terminators
 /* assume s1 and s2 point to buffers with enough space to hold the result */
 /* assume that the int parameters are strictly greater than 0 */
 
-CalculationResult* calculate(char *s1, char *s2)
+CalculationResult *calculate(char *s1, char *s2)
 {
     int i;
-    CalculationResult* result = malloc(sizeof(CalculationResult));
     size_t length1 = strlen(s1);
     size_t length2 = strlen(s2);
     int longest;
@@ -49,6 +48,14 @@ CalculationResult* calculate(char *s1, char *s2)
     char running = 'R';
     char ready = 'r';
 
+    CalculationResult *result = malloc(sizeof(CalculationResult));
+
+    if (result == NULL)
+    {
+        fprintf(stderr, "ERROR: Failed to allocate memory");
+        return EXIT_FAILURE;
+    }
+
     if (length1 > length2)
     {
         longest = length1;
@@ -58,7 +65,7 @@ CalculationResult* calculate(char *s1, char *s2)
         longest = length2;
     }
 
-    for (i = 0; i != '\0'; i++)
+    for (i = 0; s1[i] != '\0'; i++)
     {
         if (s1[i] == wait)
         {
@@ -74,7 +81,7 @@ CalculationResult* calculate(char *s1, char *s2)
         }
     }
 
-    for (i = 0; i != '\0'; i++)
+    for (i = 0; s2[i] != '\0'; i++)
     {
         if (s2[i] == wait)
         {
@@ -90,10 +97,8 @@ CalculationResult* calculate(char *s1, char *s2)
         }
     }
 
-    int avg_wait_time = (ready_count1 + ready_count2) / 2;
-    result->avg_wait_time = avg_wait_time;
-    int cpu_ut = (running_count1 + running_count2) / longest;
-    result->cpu_ut = cpu_ut;
+    result->avg_wait_time = (ready_count1 + ready_count2) / 2;
+    result->cpu_ut = (running_count1 + running_count2) / longest;
     result->wait_count1 = wait_count1;
     result->wait_count2 = wait_count2;
 
