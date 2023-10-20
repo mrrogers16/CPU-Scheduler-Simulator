@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
 
     if (argc < 8)
     {
-        fprintf(stderr, "ERROR USAGE: ./assign2 quantum x1 y1 z1 x2 y2 z2\n");
+        fprintf(stderr, "ERROR USAGE: %s quantum x1 y1 z1 x2 y2 z2\n", argv[0]);
         return 1;
     }
     else
@@ -50,5 +50,5 @@ int main(int argc, char *argv[])
     psjf(s1, s2, x1, y1, z1, x2, y2, z2);
     rr(s1, s2, quantum, x1, y1, z1, x2, y2, z2);
 
-    return 0;
+    return EXIT_SUCCESS;
 }
