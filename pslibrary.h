@@ -19,6 +19,6 @@ void sjf(char *s1, char *s2, int x1, int y1, int z1,
 void fcfs(char *s1, char *s2, int x1, int y1, int z1,
           int x2, int y2, int z2);
 
-//CalculationResult* calculate(char *s1, char *s2);
+// CalculationResult* calculate(char *s1, char *s2);
 
 #endif
