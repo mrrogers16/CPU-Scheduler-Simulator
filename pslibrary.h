@@ -2,6 +2,7 @@
 #ifndef PSLIBRARY_H
 #define PSLIBRARY_H
 
+
 // Round Robin
 void rr(char *s1, char *s2, int quantum, int x1, int y1, int z1,
         int x2, int y2, int z2);
@@ -17,5 +18,7 @@ void sjf(char *s1, char *s2, int x1, int y1, int z1,
 // First Come First Serve Algo
 void fcfs(char *s1, char *s2, int x1, int y1, int z1,
           int x2, int y2, int z2);
+
+//CalculationResult* calculate(char *s1, char *s2);
 
 #endif

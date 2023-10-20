@@ -18,6 +18,7 @@ makefile
 int main(int argc, char *argv[])
 {
     int i;
+    int quantum = atoi(argv[1]);
     int x1 = atoi(argv[2]);
     int y1 = atoi(argv[3]);
     int z1 = atoi(argv[4]);
@@ -47,6 +48,7 @@ int main(int argc, char *argv[])
     fcfs(s1, s2, x1, y1, z1, x2, y2, z2);
     sjf(s1, s2, x1, y1, z1, x2, y2, z2);
     psjf(s1, s2, x1, y1, z1, x2, y2, z2);
+    rr(s1, s2, quantum, x1, y1, z1, x2, y2, z2);
 
     return 0;
 }
