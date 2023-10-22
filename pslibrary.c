@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "pslibrary.h"
 
 #define READY 0
 #define RUNNING 1
@@ -8,14 +9,6 @@
 #define DONE 3
 
 static char stateChars[] = {'r', 'R', 'w', '\0'};
-
-typedef struct
-{
-    int avg_wait_time;
-    int cpu_ut;
-    int wait_count1;
-    int wait_count2;
-} CalculationResult;
 
 /* 1) handle state changes:
 running process completes CPU burst
@@ -30,7 +23,7 @@ avoid putting in multiple string terminators
 /* assume that the int parameters are strictly greater than 0 */
 
 void rr(char *s1, char *s2, int quantum, int x1, int y1, int z1,
-          int x2, int y2, int z2)
+        int x2, int y2, int z2)
 {
     int i;              /* next string position (time) */
     int state1 = READY; /* start with both ready */
@@ -68,7 +61,7 @@ void rr(char *s1, char *s2, int quantum, int x1, int y1, int z1,
         {
             state1 = READY;
 
-            if(state2 == READY)
+            if (state2 == READY)
             {
                 state2 = RUNNING;
                 qleft = quantum;
@@ -76,14 +69,13 @@ void rr(char *s1, char *s2, int quantum, int x1, int y1, int z1,
         }
         if ((state2 == RUNNING) && (qleft == 0))
         {
-            state2 = READY; 
+            state2 = READY;
 
-            if(state1 == READY)
+            if (state1 == READY)
             {
                 state1 = RUNNING;
                 qleft = quantum;
             }
-            
         }
         /* handle IO complete */
         if ((state1 == WAITING) && (ioLeft1 == 0))
@@ -129,19 +121,19 @@ void rr(char *s1, char *s2, int quantum, int x1, int y1, int z1,
         if (state2 == WAITING)
             ioLeft2--;
     } /* end of main for loop */
-    // printf("RR\nS1: ");
-    // for (i = 0; s1[i] != '\0'; i++)
-    // {
-    //     printf("%c", s1[i]);
-    // }
-    // printf("\n");
+    printf("RR\nS1: ");
+    for (i = 0; s1[i] != '\0'; i++)
+    {
+        printf("%c", s1[i]);
+    }
+    printf("\n");
 
-    // printf("S2: ");
-    // for (i = 0; s2[i] != '\0'; i++)
-    // {
-    //     printf("%c", s2[i]);
-    // }
-    // printf("\n");
+    printf("S2: ");
+    for (i = 0; s2[i] != '\0'; i++)
+    {
+        printf("%c", s2[i]);
+    }
+    printf("\n");
 }
 
 void psjf(char *s1, char *s2, int x1, int y1, int z1,
@@ -236,19 +228,19 @@ void psjf(char *s1, char *s2, int x1, int y1, int z1,
             ioLeft2--;
     } /* end of main for loop */
 
-    // printf("PSJF\nS1: ");
-    // for (i = 0; s1[i] != '\0'; i++)
-    // {
-    //     printf("%c", s1[i]);
-    // }
-    // printf("\n");
+    printf("PSJF\nS1: ");
+    for (i = 0; s1[i] != '\0'; i++)
+    {
+        printf("%c", s1[i]);
+    }
+    printf("\n");
 
-    // printf("S2: ");
-    // for (i = 0; s2[i] != '\0'; i++)
-    // {
-    //     printf("%c", s2[i]);
-    // }
-    // printf("\n");
+    printf("S2: ");
+    for (i = 0; s2[i] != '\0'; i++)
+    {
+        printf("%c", s2[i]);
+    }
+    printf("\n");
 }
 
 void sjf(char *s1, char *s2, int x1, int y1, int z1,
@@ -336,19 +328,19 @@ void sjf(char *s1, char *s2, int x1, int y1, int z1,
         if (state2 == WAITING)
             ioLeft2--;
     } /* end of main for loop */
-    // printf("SJF\nS1: ");
-    // for (i = 0; s1[i] != '\0'; i++)
-    // {
-    //     printf("%c", s1[i]);
-    // }
-    // printf("\n");
+    printf("SJF\nS1: ");
+    for (i = 0; s1[i] != '\0'; i++)
+    {
+        printf("%c", s1[i]);
+    }
+    printf("\n");
 
-    // printf("S2: ");
-    // for (i = 0; s2[i] != '\0'; i++)
-    // {
-    //     printf("%c", s2[i]);
-    // }
-    // printf("\n");
+    printf("S2: ");
+    for (i = 0; s2[i] != '\0'; i++)
+    {
+        printf("%c", s2[i]);
+    }
+    printf("\n");
 }
 
 void fcfs(char *s1, char *s2, int x1, int y1, int z1,
@@ -428,21 +420,20 @@ void fcfs(char *s1, char *s2, int x1, int y1, int z1,
             ioLeft2--;
     } /* end of main for loop */
 
-    // printf("FCFS\nS1: ");
-    // for (i = 0; s1[i] != '\0'; i++)
-    // {
-    //     printf("%c", s1[i]);
-    // }
-    // printf("\n");
+    printf("FCFS\nS1: ");
+    for (i = 0; s1[i] != '\0'; i++)
+    {
+        printf("%c", s1[i]);
+    }
+    printf("\n");
 
-    // printf("S2: ");
-    // for (i = 0; s2[i] != '\0'; i++)
-    // {
-    //     printf("%c", s2[i]);
-    // }
-    // printf("\n");
+    printf("S2: ");
+    for (i = 0; s2[i] != '\0'; i++)
+    {
+        printf("%c", s2[i]);
+    }
+    printf("\n");
 }
-
 
 CalculationResult *calculate(char *s1, char *s2)
 {
@@ -473,7 +464,7 @@ CalculationResult *calculate(char *s1, char *s2)
         longest = length2;
     }
 
-    for (i = 0; i != '\0'; i++)
+    for (i = 0; s1[i] != '\0'; i++)
     {
         if (s1[i] == wait)
         {
@@ -489,7 +480,7 @@ CalculationResult *calculate(char *s1, char *s2)
         }
     }
 
-    for (i = 0; i != '\0'; i++)
+    for (i = 0; s2[i] != '\0'; i++)
     {
         if (s2[i] == wait)
         {
@@ -505,9 +496,9 @@ CalculationResult *calculate(char *s1, char *s2)
         }
     }
 
-    int avg_wait_time = (ready_count1 + ready_count2) / 2;
+    float avg_wait_time = (float)(ready_count1 + ready_count2) / 2;
     result->avg_wait_time = avg_wait_time;
-    int cpu_ut = (running_count1 + running_count2) / longest;
+    float cpu_ut = (float)(running_count1 + running_count2) / longest;
     result->cpu_ut = cpu_ut;
     result->wait_count1 = wait_count1;
     result->wait_count2 = wait_count2;
