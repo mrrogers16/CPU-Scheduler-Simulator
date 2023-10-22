@@ -25,6 +25,7 @@ avoid putting in multiple string terminators
 void rr(char *s1, char *s2, int quantum, int x1, int y1, int z1,
         int x2, int y2, int z2)
 {
+    struct CalculationResult *result;
     int i;              /* next string position (time) */
     int state1 = READY; /* start with both ready */
     int state2 = READY;
@@ -33,6 +34,7 @@ void rr(char *s1, char *s2, int quantum, int x1, int y1, int z1,
     int ioLeft1 = y1;  /* P1 next IO burst remaining, 0 if no more IO */
     int ioLeft2 = y2;  /* P2 next IO burst remaining, 0 if no more IO */
     int qleft = quantum;
+
     for (i = 0; (state1 != DONE) || (state2 != DONE); i++)
     {
         /* running process completes its CPU burst */
@@ -121,24 +123,25 @@ void rr(char *s1, char *s2, int quantum, int x1, int y1, int z1,
         if (state2 == WAITING)
             ioLeft2--;
     } /* end of main for loop */
-    printf("RR\nS1: ");
+    printf("Scheduler RR:\n");
     for (i = 0; s1[i] != '\0'; i++)
     {
         printf("%c", s1[i]);
     }
     printf("\n");
-
-    printf("S2: ");
     for (i = 0; s2[i] != '\0'; i++)
     {
         printf("%c", s2[i]);
     }
     printf("\n");
+    result = calculate(s1, s2);
+    printCalculations(result);
 }
 
 void psjf(char *s1, char *s2, int x1, int y1, int z1,
           int x2, int y2, int z2)
 {
+    struct CalculationResult *result;
     int i;              /* next string position (time) */
     int state1 = READY; /* start with both ready */
     int state2 = READY;
@@ -228,24 +231,25 @@ void psjf(char *s1, char *s2, int x1, int y1, int z1,
             ioLeft2--;
     } /* end of main for loop */
 
-    printf("PSJF\nS1: ");
+    printf("Scheduler PSJF:\n");
     for (i = 0; s1[i] != '\0'; i++)
     {
         printf("%c", s1[i]);
     }
     printf("\n");
-
-    printf("S2: ");
     for (i = 0; s2[i] != '\0'; i++)
     {
         printf("%c", s2[i]);
     }
     printf("\n");
+    result = calculate(s1, s2);
+    printCalculations(result);
 }
 
 void sjf(char *s1, char *s2, int x1, int y1, int z1,
          int x2, int y2, int z2)
 {
+    struct CalculationResult *result;
     int i;              /* next string position (time) */
     int state1 = READY; /* start with both ready */
     int state2 = READY;
@@ -328,24 +332,25 @@ void sjf(char *s1, char *s2, int x1, int y1, int z1,
         if (state2 == WAITING)
             ioLeft2--;
     } /* end of main for loop */
-    printf("SJF\nS1: ");
+    printf("Scheduler SJF:\n");
     for (i = 0; s1[i] != '\0'; i++)
     {
         printf("%c", s1[i]);
     }
     printf("\n");
-
-    printf("S2: ");
     for (i = 0; s2[i] != '\0'; i++)
     {
         printf("%c", s2[i]);
     }
     printf("\n");
+    result = calculate(s1, s2);
+    printCalculations(result);
 }
 
 void fcfs(char *s1, char *s2, int x1, int y1, int z1,
           int x2, int y2, int z2)
 {
+    struct CalculationResult *result;
     int i;              /* next string position (time) */
     int state1 = READY; /* start with both ready */
     int state2 = READY; /* start with both ready */
@@ -420,24 +425,29 @@ void fcfs(char *s1, char *s2, int x1, int y1, int z1,
             ioLeft2--;
     } /* end of main for loop */
 
-    printf("FCFS\nS1: ");
+    printf("Scheduler FCFS:\n");
     for (i = 0; s1[i] != '\0'; i++)
     {
         printf("%c", s1[i]);
     }
     printf("\n");
-
-    printf("S2: ");
     for (i = 0; s2[i] != '\0'; i++)
     {
         printf("%c", s2[i]);
     }
     printf("\n");
+    result = calculate(s1, s2);
+    printCalculations(result);
+}
+
+void printCalculations(struct CalculationResult *result)
+{
+    printf("%d %d %.1f %.5f \n", result->wait_count1, result->wait_count2, result->avg_wait_time, result->cpu_ut);
 }
 
 CalculationResult *calculate(char *s1, char *s2)
 {
-    int i;
+    int i, j;
     CalculationResult *result = malloc(sizeof(CalculationResult));
     size_t length1 = strlen(s1);
     size_t length2 = strlen(s2);
@@ -459,9 +469,13 @@ CalculationResult *calculate(char *s1, char *s2)
     {
         longest = length1;
     }
-    else
+    else if (length1 < length2)
     {
         longest = length2;
+    }
+    else
+    {
+        longest = length1;
     }
 
     for (i = 0; s1[i] != '\0'; i++)
@@ -480,28 +494,26 @@ CalculationResult *calculate(char *s1, char *s2)
         }
     }
 
-    for (i = 0; s2[i] != '\0'; i++)
+    for (j = 0; s2[j] != '\0'; j++)
     {
-        if (s2[i] == wait)
+        if (s2[j] == wait)
         {
             wait_count2++;
         }
-        else if (s2[i] == running)
+        else if (s2[j] == running)
         {
             running_count2++;
         }
-        else if (s2[i] == ready)
+        else if (s2[j] == ready)
         {
             ready_count2++;
         }
     }
 
-    float avg_wait_time = (float)(ready_count1 + ready_count2) / 2;
-    result->avg_wait_time = avg_wait_time;
-    float cpu_ut = (float)(running_count1 + running_count2) / longest;
-    result->cpu_ut = cpu_ut;
-    result->wait_count1 = wait_count1;
-    result->wait_count2 = wait_count2;
+    result->avg_wait_time = (float)(ready_count1 + ready_count2) / 2;
+    result->cpu_ut = (float)(running_count1 + running_count2) / longest;
+    result->wait_count1 = wait_count1 - 1;
+    result->wait_count2 = wait_count2 - 1;
 
     return result;
 

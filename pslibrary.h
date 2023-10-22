@@ -2,10 +2,10 @@
 #ifndef PSLIBRARY_H
 #define PSLIBRARY_H
 
-struct CalculationResult
+typedef struct CalculationResult
 {
-        int avg_wait_time;
-        int cpu_ut;
+        float avg_wait_time;
+        float cpu_ut;
         int wait_count1;
         int wait_count2;
 }CalculationResult;
@@ -27,6 +27,9 @@ void fcfs(char *s1, char *s2, int x1, int y1, int z1,
           int x2, int y2, int z2);
 
 // Calculate Function for average wait time and cpu utilization
-CalculationResult *calculate(char *s1, char *s2);
+struct CalculationResult *calculate(char *s1, char *s2);
+
+// Print calculations (call after)
+void printCalculations(struct CalculationResult *result);
 
 #endif
