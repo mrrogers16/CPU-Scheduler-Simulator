@@ -123,19 +123,19 @@ void rr(char *s1, char *s2, int quantum, int x1, int y1, int z1,
         if (state2 == WAITING)
             ioLeft2--;
     } /* end of main for loop */
-    printf("Scheduler RR:\n");
-    for (i = 0; s1[i] != '\0'; i++)
-    {
-        printf("%c", s1[i]);
-    }
-    printf("\n");
-    for (i = 0; s2[i] != '\0'; i++)
-    {
-        printf("%c", s2[i]);
-    }
-    printf("\n");
-    result = calculate(s1, s2);
-    printCalculations(result);
+    // printf("Scheduler RR:\n");
+    // for (i = 0; s1[i] != '\0'; i++)
+    // {
+    //     printf("%c", s1[i]);
+    // }
+    // printf("\n");
+    // for (i = 0; s2[i] != '\0'; i++)
+    // {
+    //     printf("%c", s2[i]);
+    // }
+    // printf("\n");
+    // result = calculate(s1, s2);
+    // printCalculations(result);
 }
 
 void psjf(char *s1, char *s2, int x1, int y1, int z1,
@@ -231,19 +231,19 @@ void psjf(char *s1, char *s2, int x1, int y1, int z1,
             ioLeft2--;
     } /* end of main for loop */
 
-    printf("Scheduler PSJF:\n");
-    for (i = 0; s1[i] != '\0'; i++)
-    {
-        printf("%c", s1[i]);
-    }
-    printf("\n");
-    for (i = 0; s2[i] != '\0'; i++)
-    {
-        printf("%c", s2[i]);
-    }
-    printf("\n");
-    result = calculate(s1, s2);
-    printCalculations(result);
+    // printf("Scheduler PSJF:\n");
+    // for (i = 0; s1[i] != '\0'; i++)
+    // {
+    //     printf("%c", s1[i]);
+    // }
+    // printf("\n");
+    // for (i = 0; s2[i] != '\0'; i++)
+    // {
+    //     printf("%c", s2[i]);
+    // }
+    // printf("\n");
+    // result = calculate(s1, s2);
+    // printCalculations(result);
 }
 
 void sjf(char *s1, char *s2, int x1, int y1, int z1,
@@ -332,19 +332,19 @@ void sjf(char *s1, char *s2, int x1, int y1, int z1,
         if (state2 == WAITING)
             ioLeft2--;
     } /* end of main for loop */
-    printf("Scheduler SJF:\n");
-    for (i = 0; s1[i] != '\0'; i++)
-    {
-        printf("%c", s1[i]);
-    }
-    printf("\n");
-    for (i = 0; s2[i] != '\0'; i++)
-    {
-        printf("%c", s2[i]);
-    }
-    printf("\n");
-    result = calculate(s1, s2);
-    printCalculations(result);
+    // printf("Scheduler SJF:\n");
+    // for (i = 0; s1[i] != '\0'; i++)
+    // {
+    //     printf("%c", s1[i]);
+    // }
+    // printf("\n");
+    // for (i = 0; s2[i] != '\0'; i++)
+    // {
+    //     printf("%c", s2[i]);
+    // }
+    // printf("\n");
+    // result = calculate(s1, s2);
+    // printCalculations(result);
 }
 
 void fcfs(char *s1, char *s2, int x1, int y1, int z1,
@@ -425,19 +425,19 @@ void fcfs(char *s1, char *s2, int x1, int y1, int z1,
             ioLeft2--;
     } /* end of main for loop */
 
-    printf("Scheduler FCFS:\n");
-    for (i = 0; s1[i] != '\0'; i++)
-    {
-        printf("%c", s1[i]);
-    }
-    printf("\n");
-    for (i = 0; s2[i] != '\0'; i++)
-    {
-        printf("%c", s2[i]);
-    }
-    printf("\n");
-    result = calculate(s1, s2);
-    printCalculations(result);
+    // printf("Scheduler FCFS:\n");
+    // for (i = 0; s1[i] != '\0'; i++)
+    // {
+    //     printf("%c", s1[i]);
+    // }
+    // printf("\n");
+    // for (i = 0; s2[i] != '\0'; i++)
+    // {
+    //     printf("%c", s2[i]);
+    // }
+    // printf("\n");
+    // result = calculate(s1, s2);
+    // printCalculations(result);
 }
 
 void printCalculations(struct CalculationResult *result)
