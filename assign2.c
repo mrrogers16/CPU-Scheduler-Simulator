@@ -28,6 +28,7 @@ int main(int argc, char *argv[])
     int size = x1 + y1 + z1 + x2 + y2 + z2;
     char s1[size];
     char s2[size];
+    struct CalculationResult result;
 
     if (argc < 8)
     {
